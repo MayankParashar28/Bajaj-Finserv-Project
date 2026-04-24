@@ -11,7 +11,7 @@ app.use("/bfhl", bfhlRoutes);
 
 // Root endpoint to show the server is alive
 app.get("/", (req, res) => {
-  res.status(200).send("<h1>BFHL Backend is Live! 🚀</h1><p>Send a POST request to <code>/bfhl</code></p>");
+  res.status(200).send("<h1>BFHL Backend is Live!</h1><p>Send a POST request to <code>/bfhl</code></p>");
 });
 
 // Health check endpoint (for GET /bfhl)
