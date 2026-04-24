@@ -1,13 +1,13 @@
 <div align="center">
-  <h1>🚀 BFHL Full Stack Challenge</h1>
+  <h1>BFHL Node Hierarchy Explorer</h1>
   <p><strong>A production-ready, enterprise-grade graph processing application.</strong></p>
 </div>
 
 <br />
 
-This repository contains a highly modular, full-stack application built for the **SRM Full Stack Challenge**. It is designed to parse, validate, and construct complex hierarchical node graphs (trees and cycles) from raw user input, complete with a premium, interactive frontend visualization.
+This repository contains a highly modular, full-stack application built for the **Bajaj Finserv Holdings Ltd.**. It is designed to parse, validate, and construct complex hierarchical node graphs (trees and cycles) from raw user input, complete with a premium, interactive frontend visualization.
 
-## ✨ Key Features
+## Key Features
 
 - **Robust Graph Engine**: Custom algorithms implementing Union-Find for component grouping and DFS for deep cycle detection.
 - **Enterprise Frontend**: A stunning React (Vite) Single Page Application featuring a Vercel-inspired clean UI architecture, glassmorphism tokens, and responsive layout.
@@ -17,7 +17,7 @@ This repository contains a highly modular, full-stack application built for the 
 
 ---
 
-## 📂 Architecture
+## Architecture
 
 The project is structured as a monorepo containing two decoupled services:
 
@@ -39,7 +39,7 @@ bfhl-challenge/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Run the Backend API
 
@@ -67,7 +67,7 @@ Navigate to `http://localhost:5173` in your browser. The UI will automatically c
 
 ---
 
-## 📡 API Reference
+## API Reference
 
 ### `POST /bfhl`
 Processes an array of directed edge strings and returns structured graph insights.
@@ -112,7 +112,7 @@ Processes an array of directed edge strings and returns structured graph insight
 
 ---
 
-## 🧠 Core Logic & Edge Cases Handled
+## Core Logic & Edge Cases Handled
 
 1. **Input Validation**: Accepts strictly `"X->Y"` format. Self-loops (`A->A`) and malformed strings are pushed to `invalid_entries`.
 2. **Duplicate Detection**: Perfect string matches are captured exactly once into `duplicate_edges`.
@@ -121,18 +121,3 @@ Processes an array of directed edge strings and returns structured graph insight
 
 ---
 
-## 🌍 Production Deployment
-
-### Backend (Render / Railway)
-1. Connect your repository to your hosting provider.
-2. Set the Root Directory to `backend`.
-3. **Build Command**: `npm install`
-4. **Start Command**: `node server.js`
-
-### Frontend (Vercel / Netlify)
-1. Connect your repository.
-2. Set the Root Directory to `frontend`.
-3. Select **Vite** as the framework preset.
-4. **Build Command**: `npm run build`
-5. **Output Directory**: `dist`
-6. *Important*: Once your backend is live, paste the production URL into the "API Endpoint" input field at the top of the live frontend UI.

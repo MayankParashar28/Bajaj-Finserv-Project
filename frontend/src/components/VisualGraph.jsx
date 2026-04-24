@@ -56,7 +56,7 @@ export const VisualGraph = ({ hierarchies }) => {
         // Let's just drop a standalone node to visually indicate it.
         initialNodes.push({
           id: `${prefix}${h.root}`,
-          data: { label: `${h.root} ⟳` },
+          data: { label: `${h.root} (Cycle)` },
           className: 'custom-node cycle-node',
         });
         return;

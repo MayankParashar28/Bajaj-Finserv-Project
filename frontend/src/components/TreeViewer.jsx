@@ -51,12 +51,12 @@ export const TreeViewer = ({ hierarchy }) => {
           <div className="root-badge">{hierarchy.root}</div>
           <div className="h-card-meta">
             <div className="root-label">Root: {hierarchy.root}</div>
-            <div className="root-sub">Cyclic group</div>
+            <div className="root-sub">Cycle</div>
           </div>
-          <span className="tag tag-cycle">⟳ Cycle</span>
+          <span className="tag tag-cycle">Cycle</span>
         </div>
         <div className="h-card-body">
-          <div className="cycle-msg">⟳ This group contains a cycle — no tree can be rendered.</div>
+          <div className="cycle-msg">This group contains a cycle — no tree can be rendered.</div>
         </div>
       </div>
     );
