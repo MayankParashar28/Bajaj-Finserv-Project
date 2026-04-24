@@ -1,75 +1,104 @@
-# BFHL Full Stack Application
+<div align="center">
+  <h1>🚀 BFHL Full Stack Challenge</h1>
+  <p><strong>A production-ready, enterprise-grade graph processing application.</strong></p>
+</div>
 
-This project is a complete, modular full-stack application built for the SRM Full Stack Challenge. It consists of a Node.js/Express backend API and a modern React (Vite) frontend single-page application.
+<br />
 
-## Directory Structure
+This repository contains a highly modular, full-stack application built for the **SRM Full Stack Challenge**. It is designed to parse, validate, and construct complex hierarchical node graphs (trees and cycles) from raw user input, complete with a premium, interactive frontend visualization.
+
+## ✨ Key Features
+
+- **Robust Graph Engine**: Custom algorithms implementing Union-Find for component grouping and DFS for deep cycle detection.
+- **Enterprise Frontend**: A stunning React (Vite) Single Page Application featuring a Vercel-inspired clean UI architecture, glassmorphism tokens, and responsive layout.
+- **Interactive Visualization**: Drag-and-drop node graph rendering using `React Flow` and `Dagre` layout engines.
+- **Strict Validation**: Bulletproof input sanitization, capturing exact duplicates, handling multi-parent conflicts ("first-parent-wins"), and discarding invalid formats.
+- **Modular Backend**: Clean separation of concerns (Routes, Controllers, Services) built on Node.js and Express.
+
+---
+
+## 📂 Architecture
+
+The project is structured as a monorepo containing two decoupled services:
 
 ```text
 bfhl-challenge/
-├── backend/            ← Node.js / Express API
-│   ├── controllers/
-│   ├── routes/
-│   ├── services/       ← Graph traversal and validation logic
-│   ├── server.js
-│   └── package.json
-├── frontend/           ← React (Vite) SPA UI
-│   ├── src/
-│   │   ├── components/
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│   ├── index.html
-│   └── package.json
-└── README.md
+├── backend/                  ← Node.js REST API
+│   ├── controllers/          ← Request handling & response formatting
+│   ├── routes/               ← API Endpoint definitions
+│   ├── services/             ← Core Business Logic (Validation & Graph Math)
+│   └── server.js             ← Express initialization
+│
+└── frontend/                 ← React (Vite) UI
+    ├── src/
+    │   ├── components/       ← UI Components (TreeViewer, VisualGraph)
+    │   ├── App.jsx           ← Main Application View
+    │   └── index.css         ← Enterprise Design System (Tokens & Variables)
+    └── package.json
 ```
 
-## Running Locally
+---
 
-### 1. Start the Backend API
+## 🚀 Getting Started
+
+### 1. Run the Backend API
+
+The backend runs on **Node.js**.
 
 ```bash
 cd backend
 npm install
-npm start   # or: node server.js
+npm run start   # Starts the Express server on port 3001
 ```
 
-The API will run on `http://localhost:3001`.
+### 2. Run the Frontend Application
 
-### 2. Start the Frontend App
+The frontend is powered by **React** and **Vite** for lightning-fast HMR.
 
-Open a new terminal window:
+Open a *new* terminal window:
 
 ```bash
 cd frontend
 npm install
-npm run dev
+npm run dev     # Starts the Vite dev server on port 5173
 ```
 
-The React app will typically run on `http://localhost:5173`. Open this URL in your browser.
+Navigate to `http://localhost:5173` in your browser. The UI will automatically connect to your local backend.
 
-## API Reference
+---
 
-**POST** `/bfhl`  
-**Content-Type:** `application/json`
+## 📡 API Reference
 
-### Request Payload Format
+### `POST /bfhl`
+Processes an array of directed edge strings and returns structured graph insights.
 
+**Headers:**  
+`Content-Type: application/json`
+
+**Request Payload:**
 ```json
 {
   "data": ["A->B", "A->C", "B->D", "X->Y", "Y->Z", "Z->X", "hello"]
 }
 ```
 
-### Expected Response
-
+**Response Format (200 OK):**
 ```json
 {
-  "user_id": "john_doe_17091999",
-  "email_id": "john@college.edu",
-  "college_roll_number": "ABCD123456",
+  "user_id": "mayank_parashar_28082005",
+  "email_id": "mp0120@srmist.edu.in",
+  "college_roll_number": "RA2311026030144",
   "hierarchies": [
-    { "root": "A", "tree": { "A": { "B": { "D": {} }, "C": {} } }, "depth": 3 },
-    { "root": "X", "tree": {}, "has_cycle": true }
+    { 
+      "root": "A", 
+      "tree": { "A": { "B": { "D": {} }, "C": {} } }, 
+      "depth": 3 
+    },
+    { 
+      "root": "X", 
+      "tree": {}, 
+      "has_cycle": true 
+    }
   ],
   "invalid_entries": ["hello"],
   "duplicate_edges": [],
@@ -81,32 +110,29 @@ The React app will typically run on `http://localhost:5173`. Open this URL in yo
 }
 ```
 
-## Logic Rules implemented
+---
 
-- **Input Validation**: Accepts strictly `"X->Y"` format. Invalid formats are returned in `invalid_entries`.
-- **First-parent wins**: If a node gets assigned multiple parents, the first edge processed is kept; subsequent contradictory edges are discarded.
-- **Cycles**: Undirected and directed cycle groupings resolve automatically, rendering `"has_cycle": true` and a zero-depth empty tree.
-- **Root Resolution**: Determines the correct root even for disjoint valid tree structures. In pure cycle loops, chooses the lexicographically smallest node.
+## 🧠 Core Logic & Edge Cases Handled
 
-## Deployment Instructions
+1. **Input Validation**: Accepts strictly `"X->Y"` format. Self-loops (`A->A`) and malformed strings are pushed to `invalid_entries`.
+2. **Duplicate Detection**: Perfect string matches are captured exactly once into `duplicate_edges`.
+3. **Multi-Parent Resolution**: Adheres to the "first-parent-wins" rule. If a node is assigned a second parent later in the input array, the subsequent edge is silently ignored.
+4. **Cycle Isolation**: Complex cycles (e.g., `O->P->Q->R->O`) are correctly isolated, bypassing infinite recursion loops via a custom DFS trace.
 
-### Backend Deployment (Render or Railway)
+---
 
-1. Push this repository to GitHub.
-2. Sign up on [Render.com](https://render.com).
-3. Create a **New Web Service**, connect your repo.
-4. Set the Root Directory to `backend`.
-5. Build Command: `npm install`
-6. Start Command: `node server.js`
-7. Copy your deployed URL (e.g., `https://bfhl-api.onrender.com`).
+## 🌍 Production Deployment
 
-### Frontend Deployment (Vercel or Netlify)
+### Backend (Render / Railway)
+1. Connect your repository to your hosting provider.
+2. Set the Root Directory to `backend`.
+3. **Build Command**: `npm install`
+4. **Start Command**: `node server.js`
 
-1. Sign up on [Vercel](https://vercel.com) or [Netlify](https://netlify.com).
-2. Connect your GitHub repo.
-3. Set the Root Directory to `frontend`.
-4. Framework Preset: **Vite**.
-5. Build Command: `npm run build`
-6. Output Directory: `dist`.
-7. **Important**: Once deployed, open your frontend site and paste your deployed backend URL into the **API Endpoint** field in the UI.
-# Bajaj-Finserv-Project
+### Frontend (Vercel / Netlify)
+1. Connect your repository.
+2. Set the Root Directory to `frontend`.
+3. Select **Vite** as the framework preset.
+4. **Build Command**: `npm run build`
+5. **Output Directory**: `dist`
+6. *Important*: Once your backend is live, paste the production URL into the "API Endpoint" input field at the top of the live frontend UI.
